@@ -63,52 +63,113 @@ h2 { font-size: 26px; margin-bottom: 20px; }
 .teacher h3 { font-family: 'Playfair Display', serif; font-size: 22px; color: #2c3e50; margin-bottom: 8px; }
 .teacher p { font-size: 16px; color: #444; line-height: 1.5; }
 
-/* SLIDER */
-.slider { max-width: 100%; margin: auto; overflow: hidden; border-radius: 10px; position: relative; }
-.slides { display: flex; transition: 0.5s; }
-.slides img { width: 100%; height: auto; object-fit: cover; }
-.btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; padding: 10px; border-radius: 50%; cursor: pointer; }
+/* SLIDER - SỬA LỖI KHOẢNG TRẮNG */
+.slider-wrapper {
+  position: relative;
+  max-width: 1000px;
+  margin: auto;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.slides {
+  display: flex;
+  transition: transform 0.5s ease;
+  width: 100%;
+}
+.slides img {
+  flex: 0 0 100%; /* Ép mỗi ảnh chiếm đúng 100% chiều rộng container */
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+}
 .prev { left: 10px; }
 .next { right: 10px; }
 
-/* GRID */
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
-.grid img { width: 100%; border-radius: 10px; cursor: pointer; transition: transform 0.3s; }
-.grid img:hover { transform: scale(1.05); }
+/* GRID - SỬA LỖI HIỂN THỊ */
+.grid-container { position: relative; overflow: hidden; margin-top: 20px; }
+.grid {
+  display: flex;
+  gap: 10px;
+  transition: transform 0.5s ease;
+}
+.grid img {
+  flex: 0 0 calc(25% - 10px); /* Chia đều 4 ảnh trên 1 hàng */
+  min-width: 150px;
+  cursor: pointer;
+  border-radius: 10px;
+  object-fit: cover;
+  aspect-ratio: 1/1;
+}
+
+.grid-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  font-size: 24px;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+}
+.grid-btn.prev { left: 5px; }
+.grid-btn.next { right: 5px; }
 
 /* MODAL */
 .modal { 
   display: none; 
   position: fixed; 
-  width: 100%; 
-  height: 100%; 
-  top:0;
-  left:0;
+  inset: 0;
   background: rgba(0,0,0,0.8); 
   justify-content: center; 
   align-items: center; 
   z-index: 200; 
   cursor: pointer;
-  transition: opacity 0.3s;
 }
-.modal.show { display:flex; opacity: 1; }
+.modal.show { display:flex; }
 .modal img { 
   max-width: 90%; 
   max-height: 90%; 
   border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
   transform: scale(0);
   animation: zoomIn 0.3s forwards;
 }
-@keyframes zoomIn {
-  to { transform: scale(1); }
-}
+@keyframes zoomIn { to { transform: scale(1); } }
 
 /* VIDEO LINK */
 .video-link img { width:100%; max-width:600px; border-radius:15px; cursor:pointer; }
 .video-link div { margin-top:10px; font-size:18px; color:#0077ff; }
 
+/* MEMBERS */
+.members ul { list-style: disc; padding-left: 25px; font-size: 18px; line-height: 1.6; }
+
+/* FOOTER */
 footer { text-align: center; padding: 20px; color: white; }
+
+/* Responsive */
+@media screen and (max-width: 768px) { 
+    .grid img { flex: 0 0 calc(50% - 10px); } 
+}
+@media screen and (max-width: 480px) { 
+    .grid img { flex: 0 0 100%; } 
+}
+
 </style>
 </head>
 <body>
@@ -124,6 +185,7 @@ footer { text-align: center; padding: 20px; color: white; }
   <a href="#anh">Ảnh</a>
   <a href="#grid">Kho ảnh</a>
   <a href="#video">Video</a>
+  <a href="#thanhvien">Thành viên</a>
 </nav>
 
 <section id="gioithieu">
@@ -150,36 +212,47 @@ footer { text-align: center; padding: 20px; color: white; }
 
 <section id="anh">
   <h2>📸 Ảnh tập thể 12A1</h2>
-  <div class="slider">
-    <div class="slides" id="slides">
-      <img src="https://i.postimg.cc/Jn8CBCWr/53b46380-15c2-4513-a6a0-d68000308d86.jpg">
-      <img src="https://i.postimg.cc/wMBPh64q/645aa7e5-550e-443e-8c2c-69791b673593.jpg">
-      <img src="https://i.postimg.cc/3wbNmZBJ/e64c83bb-489c-4fca-b994-256d90c3c37a.jpg">
-    </div>
+  <div class="slider-wrapper">
     <button class="btn prev" onclick="prevSlide()">❮</button>
+    <div class="slides" id="slides">
+        <img src="https://i.postimg.cc/Jn8CBCWr/53b46380-15c2-4513-a6a0-d68000308d86.jpg">
+        <img src="https://i.postimg.cc/wMBPh64q/645aa7e5-550e-443e-8c2c-69791b673593.jpg">
+        <img src="https://i.postimg.cc/3wbNmZBJ/e64c83bb-489c-4fca-b994-256d90c3c37a.jpg">
+        <img src="https://i.postimg.cc/fThF86WR/8194f66b-d2da-402e-b81b-78e2650c7dbb.jpg">
+    </div>
     <button class="btn next" onclick="nextSlide()">❯</button>
   </div>
 </section>
 
 <section id="grid">
   <h2>🖼️ Một số hình ảnh khác</h2>
-  <div class="grid">
-    <img src="https://i.postimg.cc/MZjrJF2W/626443746-4156476807998304-8568536507525726312-n-(1).jpg" onclick="openImg(this)">
-    <img src="https://i.postimg.cc/MHxB4HJG/received-239672545505464.jpg" onclick="openImg(this)">
-    <img src="https://i.postimg.cc/dVzLp3G9/received-283993507953208.jpg" onclick="openImg(this)">
-    <img src="https://i.postimg.cc/26xy1xgm/received-898117698400993.jpg" onclick="openImg(this)">
-    <img src="https://i.postimg.cc/d0PVnXYY/received-3743819619240882.jpg" onclick="openImg(this)">
-    <img src="https://i.postimg.cc/qqRJzH8m/received-861676418923571.jpg" onclick="openImg(this)">
+  <div class="grid-container">
+    <button class="grid-btn prev" onclick="prevGrid()">❮</button>
+    <button class="grid-btn next" onclick="nextGrid()">❯</button>
+    <div class="grid" id="gridSlides">
+      <img src="https://i.postimg.cc/MZjrJF2W/626443746-4156476807998304-8568536507525726312-n-(1).jpg" onclick="openImg(this)">
+      <img src="https://i.postimg.cc/MHxB4HJG/received-239672545505464.jpg" onclick="openImg(this)">
+      <img src="https://i.postimg.cc/dVzLp3G9/received-283993507953208.jpg" onclick="openImg(this)">
+      <img src="https://i.postimg.cc/26xy1xgm/received-898117698400993.jpg" onclick="openImg(this)">
+      <img src="https://i.postimg.cc/g0Jknx1D/8f13298e-4f30-4058-94fe-5d73ca723af5.jpg" onclick="openImg(this)">
+      <img src="https://i.postimg.cc/Yqxx7Sg1/0af98e9a-783a-40d7-a661-29b41df713b1.jpg" onclick="openImg(this)">
+      <img src="https://i.postimg.cc/ZqX8Hvt8/3450f525-1890-47ac-a1cf-0af0796f5554.jpg" onclick="openImg(this)">
+      <img src="https://i.postimg.cc/65BdMNSC/d554fe1d-d882-45a5-b700-30c0479dd24c.jpg" onclick="openImg(this)">
+      <img src="https://i.postimg.cc/T3wnXJTP/deb59594-adeb-4914-8630-a8055c3d3f79.jpg" onclick="openImg(this)">
+      <img src="https://i.postimg.cc/pTLV5p7D/c4f3662c-7234-41fb-822c-204fcebd67c3.jpg" onclick="openImg(this)">
+      <img src="https://i.postimg.cc/J0Y43JvS/e690c0a7-a472-4f8c-870f-bd9e94b47e6d.jpg" onclick="openImg(this)">
+      <img src="https://i.postimg.cc/TPxGDChb/9ab53250-201d-41b1-9623-b703196106d0.jpg" onclick="openImg(this)">
+      <img src="https://i.postimg.cc/KzJZFBG3/ad3304d7-981c-4fc4-89ed-e5a26dc651e6.jpg" onclick="openImg(this)">
+    </div>
   </div>
 </section>
 
-<!-- MODAL -->
 <div class="modal" id="modal" onclick="closeImg()">
   <img id="modalImg">
 </div>
 
 <section id="video">
-  <h2>🎬 Một số điều mà bạn có thể chưa biết </h2>
+  <h2>🎬 Một số điều mà bạn có thể chưa biết về ngôi trường 12A1</h2>
   <div class="video-link" style="text-align:center;">
     <a href="https://www.youtube.com/watch?v=CT7Bh8rMF1A" target="_blank" style="text-decoration:none;">
       <img src="https://img.youtube.com/vi/CT7Bh8rMF1A/hqdefault.jpg" alt="Xem video trên YouTube">
@@ -188,20 +261,82 @@ footer { text-align: center; padding: 20px; color: white; }
   </div>
 </section>
 
+<section id="thanhvien">
+ <h2>👥 Thành viên nhóm 12A1</h2>
+ <div class="members">
+  <ul>
+    <li>Bùi Quang Huy - Trưởng nhóm</li>
+    <li>Nguyễn Đức Anh - Coder chính / Phụ trách tổng hợp</li>
+    <li>Vũ Quốc Việt Anh - Phó nhóm</li>
+    <li>Đỗ Đức Việt Trung - Thiết kế</li>
+    <li>Hồ Nhật Nam - Nội dung</li>
+    <li>Nguyễn Văn Hải Nam - Kiểm tra</li>
+    <li>Nguyễn Minh Hiểu - Hiệu ứng / Hỗ trợ</li>
+    <li>Đào Gia Minh - Hỗ trợ tổng hợp</li>
+  </ul>
+ </div>
+</section>
+
 <footer>
   <p>© 2026 - 12A1</p>
 </footer>
 
 <script>
-// Slider
 let index = 0;
 const slides = document.getElementById("slides");
 const total = slides.children.length;
-function nextSlide() { index = (index + 1) % total; slides.style.transform = `translateX(-${index * 100}%)`; }
-function prevSlide() { index = (index - 1 + total) % total; slides.style.transform = `translateX(-${index * 100}%)`; }
-setInterval(nextSlide, 3000);
 
-// Modal ảnh
+function updateSlider() {
+    slides.style.transform = `translateX(-${index * 100}%)`;
+}
+
+function nextSlide() { 
+    index = (index + 1) % total; 
+    updateSlider();
+}
+
+function prevSlide() { 
+    index = (index - 1 + total) % total; 
+    updateSlider();
+}
+
+setInterval(nextSlide, 4000);
+
+// GRID
+let gridIndex = 0;
+const grid = document.getElementById("gridSlides");
+const gridItems = grid.children.length;
+
+function getVisible() {
+  const w = window.innerWidth;
+  if (w < 480) return 1;
+  if (w < 768) return 2;
+  return 4;
+}
+
+function updateGridTransform() {
+  const visible = getVisible();
+  const imgWidth = grid.children[0].clientWidth;
+  const move = gridIndex * (imgWidth + 10);
+  grid.style.transform = `translateX(-${move}px)`;
+}
+
+function nextGrid() {
+  const visible = getVisible();
+  if (gridIndex < gridItems - visible) {
+      gridIndex++;
+      updateGridTransform();
+  }
+}
+
+function prevGrid() {
+  if (gridIndex > 0) {
+      gridIndex--;
+      updateGridTransform();
+  }
+}
+
+// MODAL
 function openImg(img){
   const modal = document.getElementById("modal");
   const modalImg = document.getElementById("modalImg");
@@ -215,15 +350,15 @@ function closeImg(){
   modal.classList.remove("show");
 }
 
-// Scroll effect
+// SCROLL EFFECT
 const sections = document.querySelectorAll("section");
-window.addEventListener("scroll", () => {
-  sections.forEach(sec => {
-    if(sec.getBoundingClientRect().top < window.innerHeight - 100){
-      sec.classList.add("show");
-    }
-  });
-});
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting) entry.target.classList.add("show");
+    });
+}, { threshold: 0.1 });
+
+sections.forEach(sec => observer.observe(sec));
 </script>
 
 </body>
