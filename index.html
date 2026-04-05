@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>12A1 - Kỷ niệm thanh xuân</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;500;700&family=Dancing+Script:wght@600&family=Montserrat:wght@400;700&family=Lobster&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  background: linear-gradient(to right, #74ebd5, #acb6e5);
+  color: #333;
+  overflow-x: hidden;
+}
+header { text-align: center; padding: 50px 20px; color: white; }
+header h1 { font-family: 'Lobster', cursive; font-size: 50px; }
+header p { font-size: 18px; }
+
+nav {
+  position: sticky;
+  top: 0;
+  background: rgba(0,0,0,0.8);
+  padding: 12px;
+  text-align: center;
+  z-index: 100;
+}
+nav a {
+  color: white;
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+section {
+  padding: 40px 20px;
+  background: rgba(255,255,255,0.95);
+  margin: 20px auto;
+  max-width: 1000px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: 0.8s;
+}
+section.show { opacity: 1; transform: translateY(0); }
+h2 { font-size: 26px; margin-bottom: 20px; }
+
+/* INTRO */
+.intro span { display: block; margin: 5px 0; }
+.line1 { font-family: 'Dancing Script', cursive; font-size: 24px; color: #ff6b6b; }
+.line2 { font-weight: 700; }
+.line3 { font-weight: 300; color: #555; }
+.line4 { font-weight: 500; }
+.line5 { font-weight: 700; color: #0077ff; }
+
+/* TEACHER */
+.teacher { display: flex; flex-wrap: wrap; gap: 15px; align-items: center; padding: 15px; border-radius: 10px; background: #f9fbff; }
+.teacher img { width: 140px; height: 140px; border-radius: 15px; object-fit: cover; }
+.teacher div { flex: 1; }
+.teacher h3 { font-family: 'Playfair Display', serif; font-size: 22px; color: #2c3e50; margin-bottom: 8px; }
+.teacher p { font-size: 16px; color: #444; line-height: 1.5; }
+
+/* SLIDER */
+.slider { max-width: 100%; margin: auto; overflow: hidden; border-radius: 10px; position: relative; }
+.slides { display: flex; transition: 0.5s; }
+.slides img { width: 100%; height: auto; object-fit: cover; }
+.btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; padding: 10px; border-radius: 50%; cursor: pointer; }
+.prev { left: 10px; }
+.next { right: 10px; }
+
+/* GRID */
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.grid img { width: 100%; border-radius: 10px; cursor: pointer; transition: transform 0.3s; }
+.grid img:hover { transform: scale(1.05); }
+
+/* MODAL */
+.modal { 
+  display: none; 
+  position: fixed; 
+  width: 100%; 
+  height: 100%; 
+  top:0;
+  left:0;
+  background: rgba(0,0,0,0.8); 
+  justify-content: center; 
+  align-items: center; 
+  z-index: 200; 
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+.modal.show { display:flex; opacity: 1; }
+.modal img { 
+  max-width: 90%; 
+  max-height: 90%; 
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  transform: scale(0);
+  animation: zoomIn 0.3s forwards;
+}
+@keyframes zoomIn {
+  to { transform: scale(1); }
+}
+
+/* VIDEO LINK */
+.video-link img { width:100%; max-width:600px; border-radius:15px; cursor:pointer; }
+.video-link div { margin-top:10px; font-size:18px; color:#0077ff; }
+
+footer { text-align: center; padding: 20px; color: white; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎓 Lớp 12A1 🎓</h1>
+  <p>✨ Thanh xuân rực rỡ ✨</p>
+</header>
+
+<nav>
+  <a href="#gioithieu">Giới thiệu</a>
+  <a href="#giaovien">Giáo viên</a>
+  <a href="#anh">Ảnh</a>
+  <a href="#grid">Kho ảnh</a>
+  <a href="#video">Video</a>
+</nav>
+
+<section id="gioithieu">
+  <h2>🏫 Giới thiệu</h2>
+  <p class="intro">
+    <span class="line1">12A1 - nơi chứa đầy kỷ niệm thanh xuân 🌤️</span>
+    <span class="line2">Không chỉ là một lớp học, mà là cả một bầu trời thanh xuân.</span>
+    <span class="line3">Nơi có những con người “không hoàn hảo” nhưng tạo nên những kỷ niệm hoàn hảo.</span>
+    <span class="line4">Cùng nhau học, cùng nhau chơi, cùng nhau “toang” rồi lại cùng nhau đứng dậy.</span>
+    <span class="line5">Sau này mỗi người một hướng, nhưng 12A1 sẽ luôn là nơi bắt đầu của những điều đẹp nhất 💙✨</span>
+  </p>
+</section>
+
+<section id="giaovien">
+  <h2>👩‍🏫 Giáo viên</h2>
+  <div class="teacher">
+    <img src="https://i.postimg.cc/Vk0gQSbc/cokimjongun.jpg" alt="Cô Kim Anh">
+    <div>
+      <h3>Nguyễn Thị Kim Anh</h3>
+      <p>Cô không chỉ là người truyền đạt kiến thức mà còn là người đồng hành cùng chúng em suốt những năm tháng thanh xuân rực rỡ. Với sự tận tâm, nhiệt huyết và đôi khi là cả những lần “khó tính” quen thuộc, cô đã giúp 12A1 trưởng thành hơn từng ngày. Những bài học của cô không chỉ nằm trên trang vở mà còn theo chúng em trên chặng đường phía trước.</p>
+    </div>
+  </div>
+</section>
+
+<section id="anh">
+  <h2>📸 Ảnh tập thể 12A1</h2>
+  <div class="slider">
+    <div class="slides" id="slides">
+      <img src="https://i.postimg.cc/Jn8CBCWr/53b46380-15c2-4513-a6a0-d68000308d86.jpg">
+      <img src="https://i.postimg.cc/wMBPh64q/645aa7e5-550e-443e-8c2c-69791b673593.jpg">
+      <img src="https://i.postimg.cc/gJzBWzWK/628598350-1439402644360895-7993149590625029406-n.jpg">
+    </div>
+    <button class="btn prev" onclick="prevSlide()">❮</button>
+    <button class="btn next" onclick="nextSlide()">❯</button>
+  </div>
+</section>
+
+<section id="grid">
+  <h2>🖼️ Một số hình ảnh khác</h2>
+  <div class="grid">
+    <img src="https://i.postimg.cc/MZjrJF2W/626443746-4156476807998304-8568536507525726312-n-(1).jpg" onclick="openImg(this)">
+    <img src="https://i.postimg.cc/MHxB4HJG/received-239672545505464.jpg" onclick="openImg(this)">
+    <img src="https://i.postimg.cc/dVzLp3G9/received-283993507953208.jpg" onclick="openImg(this)">
+    <img src="https://i.postimg.cc/26xy1xgm/received-898117698400993.jpg" onclick="openImg(this)">
+    <img src="https://i.postimg.cc/d0PVnXYY/received-3743819619240882.jpg" onclick="openImg(this)">
+    <img src="https://i.postimg.cc/qqRJzH8m/received-861676418923571.jpg" onclick="openImg(this)">
+  </div>
+</section>
+
+<!-- MODAL -->
+<div class="modal" id="modal" onclick="closeImg()">
+  <img id="modalImg">
+</div>
+
+<section id="video">
+  <h2>🎬 Một số điều mà bạn có thể chưa biết </h2>
+  <div class="video-link" style="text-align:center;">
+    <a href="https://www.youtube.com/watch?v=CT7Bh8rMF1A" target="_blank" style="text-decoration:none;">
+      <img src="https://img.youtube.com/vi/CT7Bh8rMF1A/hqdefault.jpg" alt="Xem video trên YouTube">
+      <div>▶ Xem video trên YouTube</div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 - 12A1</p>
+</footer>
+
+<script>
+// Slider
+let index = 0;
+const slides = document.getElementById("slides");
+const total = slides.children.length;
+function nextSlide() { index = (index + 1) % total; slides.style.transform = `translateX(-${index * 100}%)`; }
+function prevSlide() { index = (index - 1 + total) % total; slides.style.transform = `translateX(-${index * 100}%)`; }
+setInterval(nextSlide, 3000);
+
+// Modal ảnh
+function openImg(img){
+  const modal = document.getElementById("modal");
+  const modalImg = document.getElementById("modalImg");
+  modal.style.display = "flex";
+  modal.classList.add("show");
+  modalImg.src = img.src;
+}
+function closeImg(){
+  const modal = document.getElementById("modal");
+  modal.style.display = "none";
+  modal.classList.remove("show");
+}
+
+// Scroll effect
+const sections = document.querySelectorAll("section");
+window.addEventListener("scroll", () => {
+  sections.forEach(sec => {
+    if(sec.getBoundingClientRect().top < window.innerHeight - 100){
+      sec.classList.add("show");
+    }
+  });
+});
+</script>
+
+</body>
+</html>
